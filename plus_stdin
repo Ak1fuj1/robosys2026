@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys
 
-<<<<<<< HEAD
+
 def tonum(s):
     try:
         return int(s)
@@ -11,6 +11,5 @@ def tonum(s):
 x = 0
 for line in sys.stdin:
     x += tonum(line.rstrip())
->>>>>>> 3d569c160beab767330b982a69b7c4de408460ab
 
 print(x)
