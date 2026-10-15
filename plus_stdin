@@ -1,15 +1,16 @@
 #!/usr/bin/python3
 import sys
 
+<<<<<<< HEAD
 def tonum(s):
-	try:
-		return int(s)
-	except ValueError:
-		return float(s)
+    try:
+        return int(s)
+    except ValueError:
+        return float(s)
 
 x = 0
 for line in sys.stdin:
-	line = line.rstrip()
-	x += tonum(line)
+    x += tonum(line.rstrip())
+>>>>>>> 3d569c160beab767330b982a69b7c4de408460ab
 
 print(x)
