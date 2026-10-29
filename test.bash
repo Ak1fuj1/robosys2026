@@ -10,16 +10,16 @@ ng () {
 res=0
 
 ### NORMAL IMPUT ###
-out=$(seq 5 | ./plus)
+out=$(seq 5 | ./plus 2> err)
 [ "$?" = 0 ]      || ng "$LINENO"
 [ "${out}" = 15 ] || ng "$LINEMO"
 
 ### STRANGE IMPUT ###
-out=$(echo あ | ./plus)
+out=$(echo あ | ./plus 2> err)
 [ "$?" = 1 ]      || ng "$LINEMO"
 [ "${out}" = "" ] || ng "$LINEMO"
 
-out=$(echo | ./plus)
+out=$(echo | ./plus 2> err)
 [ "$?" = 1 ]      || ng "LINEMO"
 [ "${out}" = "" ] || ng "LINEMO"
 
