@@ -5,16 +5,16 @@ makefileを含むc言語のセットアップを作る
 
 ## インストール方法
 ```
-git clone https://github.com/Ak1fuj1/robosys2026
+$ git clone https://github.com/Ak1fuj1/robosys2026
 ```
 
 ## 使い方
 ```
-./cset (ファイル名)
+$ ./cset (ファイル名)
 ```
 - 引数を与えてモジュールを追加することも出来る
 ```
-./cset (ファイル名) -lm
+$ ./cset (ファイル名) -lm
 ```
 
 ### 対応済みモジュール
