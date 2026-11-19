@@ -7,21 +7,37 @@ import sys
 
 name = sys.argv[1]
 
+def get_opt(*args):
+    for arg in args:
+        if 0 <= arg < len(sys.argv):
+            opt = sys.argv[arg]
+            return opt
+
 directory = Path(name)
 directory.mkdir()
-    
-(directory/ f"{name}.c").write_text("""\
+
+include_math = ""
+ldflags = ""
+
+opt = get_opt(2)
+if opt == "-lm":
+    include_math = "#include <math.h>"
+    ldflags = "LDFLAGS = -lm"
+
+(directory/ f"{name}.c").write_text(f"""\
 #include <stdio.h>
 #include <stdlib.h>
-int main(void) {
-    printf("Hello, World!\\n");
-    return 0;
-}
+{include_math}
+int main(void) {{
+\tprintf("Hello, World!\\n");
+\treturn 0;
+}}
 """, encoding="utf-8")
     
 (directory/ "makefile").write_text(f"""\
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
+{ldflags}
 TARGET = {name}
 SRCS = {name}.c
 OBJS = $(SRCS:.c=.o)
