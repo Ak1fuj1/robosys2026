@@ -27,32 +27,49 @@ trap 'rm -rf "$TEST_DIR"' EXIT
 
 cd "$TEST_DIR"
 
-# 1. プロジェクト生成
+# プロジェクト生成
 python3 "$SCRIPT_DIR/cset" sample
+python3 "$SCRIPT_DIR/cset" sample2 -lm
 
-# 2. ファイル生成確認
+# ファイル生成確認
 test -d sample
 test -f sample/sample.c
 test -f sample/makefile
+test -d sample2
+test -f sample2/sample2.c
+test -f sample2/makefile
 #test 条件を満たすかどうかを確認する
 # -d  ディレクトリが存在するかどうかを確認する
 # -f  ファイルが存在するかどうかを確認する
 
-# 3. 内容確認
+# 内容確認
 grep -q "int main(void)" sample/sample.c
 grep -q "TARGET = sample" sample/makefile
+grep -q "#include <math.h>" sample2/sample2.c
+grep -q "LDFLAGS = -lm" sample2/makefile
 #grep ファイル内から特定の文字を探す
 #-q quiet
 
-# 4. コンパイルと実行
+# sampleのコンパイルと実行
 cd sample
 make
 ./sample
 
-# 5. clean確認
+# clean確認
 make clean
 test ! -f sample
 #! -f  ファイルが存在しないかどうかを確認する
+
+cd ..
+
+# sample2のコンパイルと実行
+cd sample2
+make
+./sample2
+
+# clean確認
+make clean
+test ! -f sample2
 
 cd ..
 
