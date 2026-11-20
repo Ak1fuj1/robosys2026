@@ -7,22 +7,29 @@ import sys
 
 name = sys.argv[1]
 
-def get_opt(*args):
-    for arg in args:
-        if 0 <= arg < len(sys.argv):
-            opt = sys.argv[arg]
-            return opt
-
 directory = Path(name)
 directory.mkdir()
 
 include_math = ""
-ldflags = ""
+ldflags = []
 
-opt = get_opt(2)
-if opt == "-lm":
+opts = sys.argv[2:]
+
+if opts == "-lm":
     include_math = "#include <math.h>"
-    ldflags = "LDFLAGS = -lm"
+    mathflag = " -lm"
+
+for opt in opts:
+    if opt == "-lm":
+        include_math = "#include <math.h>"
+        ldflags.append(opt)
+
+# if you add new module
+#    elif opt == "-l":
+#       include_ = "#include <.h>"
+#       ldflags.append(opt)
+        
+flags = " ".join(ldflags)
 
 (directory/ f"{name}.c").write_text(f"""\
 #include <stdio.h>
@@ -37,7 +44,7 @@ int main(void) {{
 (directory/ "makefile").write_text(f"""\
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
-{ldflags}
+LDFLAGS = {flags}
 TARGET = {name}
 SRCS = {name}.c
 OBJS = $(SRCS:.c=.o)
