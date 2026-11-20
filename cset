@@ -61,7 +61,7 @@ SRCS = {name}.c
 OBJS = $(SRCS:.c=.o)
 all: $(TARGET)
 $(TARGET): $(OBJS)
-\t$(CC) $(CFLAGS) -o $@ $^ @(LDFLAGS)
+\t$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 run: $(TARGET)
 \t./$(TARGET)
 clean:

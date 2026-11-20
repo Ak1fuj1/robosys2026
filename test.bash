@@ -63,6 +63,8 @@ grep -q "LDFLAGS = -lm -lpthread" sample3/makefile
 
 # sampleのコンパイルと実行
 cd sample
+nl -ba makefile >&2
+make -n >&2
 make
 ./sample
 
@@ -75,6 +77,8 @@ cd ..
 
 # sample2のコンパイルと実行
 cd sample2
+nl -ba makefile >&2
+make -n >&2
 make
 ./sample2
 
@@ -86,6 +90,8 @@ cd ..
 
 # sample3のコンパイルと実行
 cd sample3
+nl -ba makefile >&2
+make -n >&2
 make
 ./sample3
 
