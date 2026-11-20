@@ -14,27 +14,38 @@ include_math = ""
 ldflags = []
 
 opts = sys.argv[2:]
+headers = {}
 
-if opts == "-lm":
-    include_math = "#include <math.h>"
-    mathflag = " -lm"
+path = Path(__file__).resolve().parent / "cset_option.txt"
+
+with open(path, "r", encoding="utf-8") as f:
+    for line in f:
+        parts = line.split()
+        
+        if len(parts) < 2:
+            continue
+    
+        option = parts[0]
+        header_name = parts[1:]
+        
+        headers[option] = header_name
+
+includes = []
 
 for opt in opts:
-    if opt == "-lm":
-        include_math = "#include <math.h>"
-        ldflags.append(opt)
-
-# if you add new module
-#    elif opt == "-l":
-#       include_ = "#include <.h>"
-#       ldflags.append(opt)
+    for header in headers.get(opt, []):
+        include = f"#include <{header}>"
         
-flags = " ".join(ldflags)
+        if include not in includes:
+            includes.append(include)
+            
+include_text = "\n".join(includes)
+ldflags = " ".join(opts)
 
 (directory/ f"{name}.c").write_text(f"""\
 #include <stdio.h>
 #include <stdlib.h>
-{include_math}
+{include_text}
 int main(void) {{
 \tprintf("Hello, World!\\n");
 \treturn 0;
@@ -44,13 +55,13 @@ int main(void) {{
 (directory/ "makefile").write_text(f"""\
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
-LDFLAGS = {flags}
+LDFLAGS = {ldflags}
 TARGET = {name}
 SRCS = {name}.c
 OBJS = $(SRCS:.c=.o)
 all: $(TARGET)
 $(TARGET): $(OBJS)
-\t$(CC) $(CFLAGS) -o $@ $^
+\t$(CC) $(CFLAGS) -o $@ $^ @(LDFLAGS)
 run: $(TARGET)
 \t./$(TARGET)
 clean:

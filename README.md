@@ -9,16 +9,21 @@ $ git clone https://github.com/Ak1fuj1/robosys2026
 ```
 
 ## 使い方
+- 実行方法
 ```
 $ ./cset (ファイル名)
 ```
-- 引数を与えてモジュールを追加することも出来る
+　- 引数を与えてヘッダファイルを追加することも出来る
 ```
-$ ./cset (ファイル名) -lm
+$ ./cset (ファイル名) -lm -lpthread
 ```
 
-### 対応済みモジュール
+- ヘッダの追加
+　- [cset_option.txt](cset_option.txt)から引数と対応するヘッダファイルを記入することで追加することができます。
+
+### 対応済みヘッダ
 - math.h
+- pthread.h
 
 ### 必要なソフトウェア
 - Python
