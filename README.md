@@ -10,13 +10,13 @@ $ git clone https://github.com/Ak1fuj1/robosys2026
 
 ## 使い方
 - 実行方法
-    ```
-    $ ./cset (ファイル名)
-    ```
+  ```
+  $ ./cset (ファイル名)
+  ```
   - 引数を与えてヘッダファイルを追加することも出来る
-    ```
-    $ ./cset (ファイル名) -lm -lpthread
-    ```
+  ```
+  $ ./cset (ファイル名) -lm -lpthread
+  ```
 
 - ヘッダの追加
   - [cset_option.txt](cset_option.txt)から引数と対応するヘッダファイルを記入することで追加することができます。
